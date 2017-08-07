@@ -7,6 +7,8 @@
  - **Remove** a file: `git rm` stages the deletion of a file, the next commit deletes it. However, it can still be checked out in past commits.
  - **Rename**: A file can be renamed by `git mv <old_name> <new_name>`, the namechange is then staged.
  - **Untrack** a file by `git rm --cached <file>`: it is removed from staging area, and not tracked any more. If a previously committed file is untracked, checking out past commits will result in a conflict.
+ - **Unstage**: To undo a `git add <file>` (i.e. remove it from the stagin area), use `git reset HEAD <file>`.
+ - **Unmodify** a file: `git checkout -- <file>` overwrites file in working directory with last commited version. *Danger*: Any changes since last commit will be lost!
  - **Diff (1)**: running simply `git diff` shows the diff between working directory and staging area (i.e. still unstaged changes). If nothing has been staged since last commit, `git diff` shows the diff between last commit and working directory. Adding the flag `--staged`, it shows the diff between last commit and staging area.
  - **Log**: Possible flags: `-p` shows difference introduced in each commit. `-<n>` limits output to past `n` commits. `--stat` shows change stats. `--graph` shows branches. `--relative-date` show relative date.
  - **Amend**: `git commit --amend` adds currently staged changes to your last commit, and you can edit the last commit message. You don't get a new commit. 
