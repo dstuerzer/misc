@@ -14,17 +14,17 @@
  - **Amend**: `git commit --amend` adds currently staged changes to your last commit, and you can edit the last commit message. You don't get a new commit. 
  - **Branches**: `git branch <new branch name>` creates a new branch (which is nothing but a pointer). To switch a branch, do `git checkout <branch>`. `git checkout -b <branch name>` creates and switches to new branch. A list of all branches is shown by `git branch`, and the current branch is marked with a `*`. The last commit per branch is shown by `git branch -v`. The flags `--merged` and `--no-merged` show the branches that have or haven't been merged into the current branch yet. 
  - **Merging**: Check out the branch you would like to merge into (often `master`), and then run `git merge <other branch>`. One of two scenarious will happen then:
+
   - *Fast Forward Merge*: If the branch to be merged is directly ahead of the branch to be merged into (e.g. `master`), then merging simply moves the `master`-pointer forward to the other branch's pointer. No conflicts happen here. The other branch can be deleted after that by `git branch -d <new branch>`.
   - *Three way merge*: New snapshot is created from the snapshots the two branch-pointers point to, and then commited. Here, conflicts can arise, which will interrupt the merge-process. `git status` shows which files contain conflicts. Conflicts are marked in the files, and can be removed manually. After that `git commit` finalizes the merge.
+
  - **Remotes**: Show all remotes by `git remote -v`, and delete a remote by `git remote rm <origin>`. To add a a new remote repo, run `git remote add <shortname> <url>`. Remote branches are accessible through `<remotename>/<branchname>`. If you have a local repo, and want to create a remote repo from the local one, first create a remote repo, but don't initialize it. Then `add origin`, then `git push -u origin master`. The `-u`-flag enables tracking of the remote branch.
- -- **Cloning**: Clones a (remote) repo and creates remote-tracking branches for each branch in the cloned repo. Then `git fetch` will update all remote-tracking branches, and `git pull` will additionally merge the remote master branch into the current master branch.
- - **Fetch**: The command `git fetch <remotename>` pulls all new data from remote, but it does not merge it or modify any current of your work. If a local branch *tracks* the remote branch, then `git pull` automatically fetches and merges the remote branch into your current local branch.
+ - **Cloning**: Clones a (remote) repo and creates remote-tracking branches for each branch in the cloned repo. Then `git fetch` will update all remote-tracking branches, and `git pull` will additionally merge the remote master branch into the current master branch.
+ - **Fetch**: The command `git fetch <remotename>` pulls all new data from remote, but it does not merge it or modify any current of your work. If a local branch *tracks* the remote branch, then `git pull` automatically fetches and merges the remote branch into your current local branch. `git fetch --all` fetches from all remotes.
  - **Push**: The command `git push <remote-name> <branch-name>` pushes local changes of branch to remote. If `push` results in a conflict, then you have first to fetch and incorporate the remote changes, before pushing is allowed.
- - **Inspecting a Remote**: `git remote show <remote name>` shows more information about the remote.
-
-
- - **Remote branches**: `git pull` is `git fetch`, followed by a `git merge` from the branch your local branch is *tracking*. Tracking    means that the remote branch and the local branch are 'connected'.
- - *Initializing tracking branch*: push local branch to tracking branch on the remote by `git push -u origin <local_branch>:<remote_branch_name>`
-  - *Fetching* remote branch: If there is a remote branch <rbranch>, and I want to create a local branch tracking the remote, you do `git checkout --track origin/<rbranch>`, or more quickly, `git checkout <rbranch>`
-
+ - **Inspecting a Remote**: `git remote show <remote name>` shows more information about the remote. `git ls-remote <remote>` shows all remote references.
+ - **Remote branches**: References to the state of remote branches, act as bookmarks to reming you where the remote branches were the last time you connected to them. Remote branches are of the form `<remote>/<branch>`. `git fetch <remote>` updates any data from remote that you don't have, and moves the `origin/master`-pointer to its up-to-date position. Other branches need to be manually merged. A local branch can be pushed to remote by `git push origin <branch>`. If a remote branch is fetched, you can create your own local version by `git checkout -b <local branch> <remote>/<branch>`.
+ - **Tracking branches**: If on a tracking branch `git pull` automatically fetches and merges from the upstream branch. To set up a tracking branch `git checkout --track <remote>/<branch>`. To track a remote branch from an existing local branch, do `git branch -u <remote>/<branch>`. To show all tracking branches, type `git branch -vv`. Push local branch to tracking branch on the remote by `git push -u origin <local_branch>:<remote_branch_name>`.
+ - **Pulling**: When on a tracking branch, it fetches and merges.
+ - **Deleting**: Delete a remote branch by `git push origin --delete <branch>`.
 
